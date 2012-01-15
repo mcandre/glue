@@ -44,7 +44,7 @@ Glue can remove itself from a USB drive.
 
 ## Credits
 
- * [pwdump6](http://www.foofus.net/~fizzgig/pwdump/)
- * [OnlineHashCrack](http://www.onlinehashcrack.com/)
- * [Strawberry Perl](http://strawberryperl.com/)
- * [PAR::Packer](http://search.cpan.org/~rschupp/PAR-Packer-1.012/lib/PAR/Packer.pm)
+ * [pwdump6](http://www.foofus.net/~fizzgig/pwdump/) - Hash retrieval
+ * [OnlineHashCrack](http://www.onlinehashcrack.com/) - Password retrieval
+ * [Strawberry Perl](http://strawberryperl.com/) - Perl for Windows
+ * [PAR::Packer](http://search.cpan.org/~rschupp/PAR-Packer-1.012/lib/PAR/Packer.pm) - Perl -> Exe compilation
