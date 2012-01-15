@@ -11,14 +11,13 @@ usb = InputBox("Where is the USB drive?", "Glue Installer", "E:")
 autorun = usb & "\autorun.inf"
 glue = usb & "\glue"
 
-fso.DeleteFile autorun, True
-fso.DeleteFolder glue, True
+if (fso.FileExists(autorun)) then
+	fso.DeleteFile autorun, True
+end if
 
-set colDrives = objWMIService.ExecQuery("Select * from Win32_LogicalDisk where DeviceID = '" & usb & "'")
-for Each objDrive in colDrives
-	objDrive.VolumeName = "HD"
-	objDrive.Put_
-next
+if (fso.FolderExists(glue)) then
+	fso.DeleteFolder glue, True
+end if
 
 cwd = Replace(WScript.ScriptFullName, WScript.ScriptName, "")
 cwd = mid(cwd, 1, len(cwd) - 1) ' Remove trailing backslash
