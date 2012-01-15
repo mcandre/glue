@@ -122,7 +122,7 @@ sub record {
 
 	$ip =~ s/\./\-/g;
 
-	my $record_filename = "$ip.txt";
+	my $record_filename = "$ip.log";
 
 	open(RECORD, ">$record_filename");
 
