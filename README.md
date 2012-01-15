@@ -2,7 +2,13 @@
 
 ## Example
 
-	perl glue.pl
+	> perl glue.pl
+	IP Address: 123.123.123.123
+	
+	Accounts on this computer
+	
+	Username: stephenfalken
+	Password: Joshua
 
 ## Credits
 
