@@ -4,7 +4,9 @@
 
 	> glue
 	Accounts on this computer (123.123.123.123)
-	
+
+	Recording in 111111111111.111.log
+
 	Username: stephenfalken
 	Hash: 4FBD4CEA97C5752CAAD3B435B51404EE
 	Password: Joshua
