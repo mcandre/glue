@@ -1,1 +1,1 @@
-pp -o glue.exe glue.pl -M LWP::UserAgent
+pp -o glue.exe --gui -M LWP::UserAgent -M Time::HiRes glue.pl

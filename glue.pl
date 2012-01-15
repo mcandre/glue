@@ -1,16 +1,15 @@
 #!/usr/bin/env perl
 
 use strict;
-use warnings;
 
 use LWP::UserAgent;
+use Time::HiRes qw(time);
 
 sub arch {
 	my $a = "32";
 
-	if ((lc $ENV{'PROCESSOR_ARCHITECTURE'} eq "amd64") or (lc $ENV{'PROCESSOR_ARCHITEW6432'} eq "amd64")) {
-		$a = "64";
-	}
+	$a = "64" if lc $ENV{'PROCESSOR_ARCHITECTURE'} eq "amd64";
+	$a = "64" if lc $ENV{'PROCESSOR_ARCHITEW6432'} eq "amd64";
 
 	return $a;
 }
@@ -118,16 +117,28 @@ sub rainbow {
 }
 
 sub record {
-	my ($ip, $decrypted_accounts, $webpage) = @_;
+	my ($ip, $encrypted_accounts, $decrypted_accounts, $webpage) = @_;
 
-	$ip =~ s/\./\-/g;
+	my $t = time; # ms
 
-	my $record_filename = "$ip.log";
+	my $record_filename = "$t.log";
+
+	print "Recording in $record_filename\n";
 
 	open(RECORD, ">$record_filename");
 
-	while (my ($username, $password) = each(%$decrypted_accounts)) {
+	print RECORD "IP Address: $ip\n";
+
+	for my $username (keys %$encrypted_accounts) {
+		my $hash = $encrypted_accounts->{$username};
+		my $password = $decrypted_accounts->{$username};
+
+		print "\nUsername: $username\n";
+		print "Hash: $hash\n";
+		print "Password: $password\n\n";
+
 		print RECORD "Username: $username\n";
+		print RECORD "Hash: $hash\n";
 		print RECORD "Password: $password\n\n";
 	}
 
@@ -141,7 +152,7 @@ sub record {
 </head>
 <body>
 <center>
-<h1>Accounts on this computer</h1>
+<h1>Accounts on this computer ($ip)</h1>
 <h4><a href="https://github.com/mcandre/glue">glue.pl</a></h4>
 END
 
@@ -155,9 +166,15 @@ END
 
 	print WEBPAGE $begin_content;
 
-	while (my ($username, $password) = each(%$decrypted_accounts)) {
-		my $account = "<h3>$username / <span class=\"password\">$password</span></h3>";
-		$account = "<h3>$username</h3>" if $password eq "";
+	for my $username (keys %$encrypted_accounts) {
+		my $hash = $encrypted_accounts->{$username};
+		my $password = $decrypted_accounts->{$username};
+
+		my $account = "<h3>$username / $hash ";
+
+		$account .= "/ <span class=\"password\">$password</span>" if $password ne "";
+
+		$account .= "</h3>";
 
 		print WEBPAGE $account;
 	}
@@ -168,7 +185,7 @@ END
 }
 
 sub show {
-	my ($ip, $decrypted_accounts, $webpage) = @_;
+	my ($webpage) = @_;
 
 	my $browser = default_web_browser;
 	my $command = "$browser $webpage";
@@ -177,22 +194,17 @@ sub show {
 
 my $ip = canhazip;
 
-print "IP Address: $ip\n";
+print "Accounts on this computer ($ip)\n";
 
 my $encrypted_accounts = dump_accounts;
 my $decrypted_accounts = {};
 
-print "\nAccounts on this computer\n";
-
 while (my ($username, $hash) = each(%$encrypted_accounts)) {
 	my $password = rainbow $hash;
 	$decrypted_accounts->{$username} = $password;
-
-	print "\nUsername: $username\n";
-	print "Password: $password\n" unless $password eq "";
 }
 
 my $webpage = "report.html";
 
-record($ip, $decrypted_accounts, $webpage);
-show($ip, $decrypted_accounts, $webpage);
+record($ip, $encrypted_accounts, $decrypted_accounts, $webpage);
+show($webpage);
