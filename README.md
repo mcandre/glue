@@ -23,7 +23,15 @@ Glue can install itself onto a USB drive for portability.
 
 	Success
 
-If installation fails, try removing Glue from the USB drive, then reinstalling Glue.
+If installation fails, try reinstalling Glue.
+
+	> reinstall
+	Where is the USB drive?
+	E:
+
+	...
+
+	Success
 
 ## Usage
 
@@ -32,7 +40,7 @@ If installation fails, try removing Glue from the USB drive, then reinstalling G
  * Autorun may execute Glue automatically.
  * If not, nagivate to `USB:\glue\` and execute `glue.exe`.
 
-Antivirus may delete `pwdump.exe` and other necessary files. If this happens, try reinstalling Glue onto the USB drive to restore the files. Disable Antivirus, run Glue, and reenable antivirus.
+Antivirus may delete `pwdump.exe` and other necessary files. If this happens, try reinstalling Glue. Disable Antivirus, run Glue, and reenable antivirus.
 
 ## Removal
 
