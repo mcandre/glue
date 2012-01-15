@@ -1,2 +1,2 @@
-Set WshShell = WScript.CreateObject("WScript.Shell")
-WshShell.Run "glue.exe", 0, False
+set shell = WScript.CreateObject("WScript.Shell")
+shell.Run "glue.exe", 0, False

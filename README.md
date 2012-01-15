@@ -11,6 +11,8 @@
 	Username: stephenfalken
 	Password: Joshua
 
+	> install
+
 ## Credits
 
  * [pwdump6](http://www.foofus.net/~fizzgig/pwdump/)
