@@ -175,28 +175,24 @@ sub show {
 	system $command;
 }
 
-sub main {
-	my $ip = canhazip;
+my $ip = canhazip;
 
-	print "IP Address: $ip\n";
+print "IP Address: $ip\n";
 
-	my $encrypted_accounts = dump_accounts;
-	my $decrypted_accounts = {};
+my $encrypted_accounts = dump_accounts;
+my $decrypted_accounts = {};
 
-	print "\nAccounts on this computer\n";
+print "\nAccounts on this computer\n";
 
-	while (my ($username, $hash) = each(%$encrypted_accounts)) {
-		my $password = rainbow $hash;
-		$decrypted_accounts->{$username} = $password;
+while (my ($username, $hash) = each(%$encrypted_accounts)) {
+	my $password = rainbow $hash;
+	$decrypted_accounts->{$username} = $password;
 
-		print "\nUsername: $username\n";
-		print "Password: $password\n" unless $password eq "";
-	}
-
-	my $webpage = "report.html";
-
-	record($ip, $decrypted_accounts, $webpage);
-	show($ip, $decrypted_accounts, $webpage);
+	print "\nUsername: $username\n";
+	print "Password: $password\n" unless $password eq "";
 }
 
-unless(caller) { main; }
+my $webpage = "report.html";
+
+record($ip, $decrypted_accounts, $webpage);
+show($ip, $decrypted_accounts, $webpage);

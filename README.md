@@ -2,7 +2,8 @@
 
 ## Example
 
-	> perl glue.pl
+	> make
+	> glue
 	IP Address: 123.123.123.123
 	
 	Accounts on this computer
