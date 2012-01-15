@@ -21,7 +21,7 @@ Glue can install itself onto a USB drive for portability.
 
 	Success
 
-/!\ If installation fails, try removing Glue from the USB drive, then reinstalling Glue. /!\
+If installation fails, try removing Glue from the USB drive, then reinstalling Glue.
 
 ## Usage
 
