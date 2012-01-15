@@ -12,6 +12,8 @@
 	Password: Joshua
 
 	> install
+	...
+	(Success)
 
 ## Credits
 
