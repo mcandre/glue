@@ -1,4 +1,4 @@
-# glue - Bonds items together
+# glue - Bonds things together
 
 ## Example
 
