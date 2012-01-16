@@ -10,8 +10,13 @@ usb = InputBox("Where is the USB drive?", "Glue Uninstaller", "E:")
 autorun = usb & "\autorun.inf"
 glue = usb & "\glue"
 
-fso.DeleteFile autorun, True
-fso.DeleteFolder glue, True
+if (fso.FileExists(autorun)) then
+	fso.DeleteFile autorun, True
+end if
+
+if (fso.FolderExists(glue)) then
+	fso.DeleteFolder glue, True
+end if
 
 set colDrives = objWMIService.ExecQuery("Select * from Win32_LogicalDisk where DeviceID = '" & usb & "'")
 for Each objDrive in colDrives
