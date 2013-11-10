@@ -1,1 +1,0 @@
-pp -o glue.exe --gui -M LWP::UserAgent -M Time::HiRes glue.pl
