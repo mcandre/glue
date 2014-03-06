@@ -38,9 +38,9 @@ If installation fails, try reinstalling Glue.
  * Install Glue onto a USB drive.
  * Insert the USB drive into a computer.
  * Autorun may execute Glue automatically.
- * If not, nagivate to `USB:\glue\` and execute `glue.exe`.
+ * If not, navigate to `USB:\glue\` and execute `glue.exe`.
 
-Antivirus may delete `pwdump.exe` and other necessary files. If this happens, try reinstalling Glue. Disable Antivirus, run Glue, and reenable antivirus.
+Anti-virus may delete `pwdump.exe` and other necessary files. If this happens, try reinstalling Glue. Disable Anti-virus, run Glue, and re-enable anti-virus.
 
 ## Removal
 
