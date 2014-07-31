@@ -1,2 +1,4 @@
 MYMETA.*
 Makefile
+*.log
+report.html

@@ -17,6 +17,9 @@ perlwarn:
 perlcritic:
 	-perlcritic -q .
 
-lint: perlwarn perlcritic
+csslint:
+	-csslint .
+
+lint: perlwarn perlcritic csslint
 END
 }
