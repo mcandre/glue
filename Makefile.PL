@@ -20,6 +20,9 @@ perlcritic:
 csslint:
 	-csslint .
 
-lint: perlwarn perlcritic csslint
+scss-lint:
+	-scss-lint .
+
+lint: perlwarn perlcritic csslint scss-lint
 END
 }

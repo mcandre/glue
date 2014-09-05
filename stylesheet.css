@@ -11,9 +11,9 @@ h4 {
 }
 
 a, a:hover, a:visited {
-	color: cyan;
+	color: #0ff;
 }
 
 .password {
-	color: red;
+	color: #f00;
 }
