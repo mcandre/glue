@@ -23,6 +23,9 @@ csslint:
 scss-lint:
 	-scss-lint .
 
-lint: perlwarn perlcritic csslint scss-lint
+lili:
+	bundle exec lili .
+
+lint: perlwarn perlcritic csslint scss-lint lili
 END
 }
