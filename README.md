@@ -2,36 +2,42 @@
 
 ## Example
 
-	> glue
-	Accounts on this computer (123.123.123.123)
+```
+> glue
+Accounts on this computer (123.123.123.123)
 
-	Recording in 111111111111.111.log
+Recording in 111111111111.111.log
 
-	Username: stephenfalken
-	Hash: 4FBD4CEA97C5752CAAD3B435B51404EE
-	Password: Joshua
+Username: stephenfalken
+Hash: 4FBD4CEA97C5752CAAD3B435B51404EE
+Password: Joshua
+```
 
 ## Installation
 
 Glue can install itself onto a USB drive for portability.
 
-	> install
-	Where is the USB drive?
-	E:
+```
+> install
+Where is the USB drive?
+E:
 
-	...
+...
 
-	Success
+Success
+```
 
 If installation fails, try reinstalling Glue.
 
-	> reinstall
-	Where is the USB drive?
-	E:
+```
+> reinstall
+Where is the USB drive?
+E:
 
-	...
+...
 
-	Success
+Success
+```
 
 ## Usage
 
@@ -46,13 +52,15 @@ Anti-virus may delete `pwdump.exe` and other necessary files. If this happens, t
 
 Glue can remove itself from a USB drive.
 
-	> uninstall
-	Where is the USB drive?
-	E:
+```
+> uninstall
+Where is the USB drive?
+E:
 
-	...
+...
 
-	Success
+Success
+```
 
 ## Credits
 
